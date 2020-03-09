@@ -57,17 +57,7 @@ Route::get('/manager', 'HomeController@manager');
 Route::get('/hr', 'HomeController@hr');
 Route::get('/requester', 'HomeController@requester');
 
-Route::get('/downloadExport', function(){
 
-    return Excel::download(new RequestsExport, 'overtime.xlsx');
-
-        // Storing of excel file in storage
-    // Excel::store(new RequestsExport, 'request.xlsx');
-    // return "Done"
-
-        // Download excel file
-    // return Excel::download(new RequestsExport, 'request.csv');
-});
 
 
 
