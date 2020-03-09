@@ -80,7 +80,7 @@ class RequesterController extends Controller
     public function import(Request $req)
     {
         $req->validate([
-                'select_file' => 'required|mimes:xls,xlsx'
+                'select_file' => 'required'
             ]);
         
         if($req->hasFile('select_file')){

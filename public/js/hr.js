@@ -8,6 +8,7 @@ function LoadHrTbl(search, url = 'hreq'){
           $('#otfrom_x').val($('#otfrom_s').val());
           $('#otto_x').val($('#otto_s').val());
           $('#shift_x').val($('#shift_s').val());
+          $('#approval_x').val($('#approval_s').val());
       }
   });
 

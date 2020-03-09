@@ -26,6 +26,7 @@ class HRController extends Controller
         $dateto = $req->input('otto');
         $shift = $req->input('shift');
         $name = $req->input('txtname');
+        $approval = $req->input('approval');
 
 
         $employees = User::all();
@@ -57,12 +58,27 @@ class HRController extends Controller
         {
             $reports = $reports->whereBetween('date',[$datefrom, $dateto]);
         }
-
+            //Shift
         if($shift == 1){
             $reports = $reports->where('shift_sched', 'like', '1' );
         }
         elseif($shift == 2){
             $reports = $reports->where('shift_sched', 'like', '2' );
+        }
+            //Approval
+        if($approval == 1){
+            $reports = $reports->where('second_process', 'like', 'Approved' );
+        }
+        elseif($approval == 2){
+            $reports = $reports->where('second_process', 'like', 'Declined')
+                    ->orwhere('first_process', 'like', 'Declined');     
+        }
+        elseif($approval == 3){
+            $reports = $reports->whereNUll('second_process')
+                        ->where(function ($query) {
+                            $query->whereNull('first_process')
+                            ->orwhere('first_process', '!=', 'Declined');
+                        });
         }
         
         
@@ -83,7 +99,8 @@ class HRController extends Controller
         return Excel::download(new RequestsExport(
             $req->input('otfrom'),
             $req->input('otto'),
-            $req->input('shift')
+            $req->input('shift'),
+            $req->input('approval')
         ), $filename.'.xlsx');
     }
 

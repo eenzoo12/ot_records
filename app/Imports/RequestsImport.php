@@ -34,7 +34,7 @@ class RequestsImport implements ToModel, WithBatchInserts, WithChunkReading, Wit
         return [
             
                 0 => $this,
-          
+
         ];
     }
     public function rules(): array

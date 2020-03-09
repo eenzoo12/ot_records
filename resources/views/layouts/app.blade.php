@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Prima Tech Phils., Inc.</title>
+    <title> OVERTIME SYSTEM </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

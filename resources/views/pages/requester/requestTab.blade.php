@@ -18,7 +18,7 @@
                 </div>
                 <div class="row" style="justify-content:center;">
                     <div style="float:left" class="col-sm-4" >
-                        <a href="{{ url('/download/template.xlsx')}}" class="btn btn-success"><i class="fa fa-download"></i> Download Template</a>
+                        <a href="{{ url('/download/template.xlsx')}}" class="btn btn-success" style="width:170px;"><i class="fa fa-download"></i> Download Template</a>
                     </div>
                     {{-- Uploading Multiple Overtime Request --}}
                 <form action="{{ route('importdata') }}" method="POST" enctype="multipart/form-data">

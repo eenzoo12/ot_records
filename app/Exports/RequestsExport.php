@@ -29,11 +29,12 @@ class RequestsExport implements FromQuery, WithMapping, WithHeadings, WithEvents
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function __construct($from,$to,$shift)
+    public function __construct($from,$to,$shift,$approval)
     {
         $this->from = $from;
         $this->to = $to;
         $this->shift = $shift;
+        $this->approval = $approval;
     }
 
     // Heading of Data in Excel
@@ -81,6 +82,7 @@ class RequestsExport implements FromQuery, WithMapping, WithHeadings, WithEvents
         $date1 = $this->from;
         $date2 = Carbon::parse($this->to.' 06:00:00')->addDay();
         $shiftChosen = $this->shift;
+        $approvalC = $this->approval;
 
         if(Auth::user()->position_id==5){
             $request = ot_tbl::where('agency_id', 'like', '1');
@@ -102,9 +104,24 @@ class RequestsExport implements FromQuery, WithMapping, WithHeadings, WithEvents
             $request = $request->where('shift_sched', 'like', '2' );
         }
         
-        
+        if($approvalC == 1){
+            $request = $request->where('second_process', 'like', 'Approved' );
+        }
+        elseif($approvalC == 2){
+            $request = $request->where('second_process', 'like', 'Declined')
+                        ->orwhere('first_process', 'like', 'Declined');
+        }
+        elseif($approvalC == 3){
+            $request = $request->where(function ($query) {
+                            $query->whereNull('first_process')
+                            ->orwhere('first_process', '!=', 'Declined');
+                        })->whereNUll('second_process');
+        }
+
         $request = $request->whereDate('date','>=',$date1.' 06:00:00')
                             ->whereDate('date','<',$date2);
+
+        
                         
          return $request;
        
@@ -118,8 +135,7 @@ class RequestsExport implements FromQuery, WithMapping, WithHeadings, WithEvents
             'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
-    
-    // Bold Heading of Excel Working on xlsx not csv
+    // Bold Heading of Excel Working on xlsx not csv 
     public function registerEvents(): array
     {
         return [

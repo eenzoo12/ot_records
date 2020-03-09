@@ -23,12 +23,8 @@
                             <h3 style="margin-left:10%;">TO BE APPROVE</h3>
                         </div>
                         <div class="col-md-3">
-                            <h1 class="kreep" style="margin-right:2%">
-                                <button type="button" id="bulk_approve2" class="btn btn-success btn-xs "><i class="fa fa-check"></i>&nbsp; APPROVE</button>
-                            </h1>
-                            <h1 class="wiggle">   
-                                <button type="button" id="bulk_decline2" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp; DECLINE</button> 
-                            </h1>
+                            <button type="button" id="bulk_approve2" class="btn btn-success btn-xs "><i class="fa fa-check"></i>&nbsp; APPROVE</button>
+                            <button type="button" id="bulk_decline2" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp; DECLINE</button> 
                         </div>
                     </div>
                 <br>
